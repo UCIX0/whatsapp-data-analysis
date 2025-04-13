@@ -96,12 +96,6 @@ def parse_datetime(date_str, time_str):
 def chat_to_dataframe(file_path):
     """
     Procesa un archivo de chat en formato texto y retorna su contenido en un DataFrame de pandas.
-
-    El DataFrame tendrá las columnas:
-        - datetime: Fecha y hora combinadas parseadas a datetime.
-        - user: Nombre del usuario.
-        - message: Mensaje del usuario.
-
     Soporta concatenación de líneas para mensajes que abarquen varias líneas.
 
     Parameters:
@@ -143,21 +137,23 @@ def chat_to_dataframe(file_path):
                 # Extrae los componentes
                 date_str, time_str, user, message = extract_line(line)
 
-                # Intenta parsear
+                # Si se extrae con exito los componentes (no es None)
                 if date_str and time_str and user is not None:
-                    try:
+                    try: # Intenta parsear datetime
                         dt = parse_datetime(date_str, time_str)
                     except Exception as e:
                         logger.warning(
                             "Registro %d: error en parseo de datetime; línea omitida. Error: %s",
                             num_line, e
                         )
-                        continue
+                        continue # Salta a la siguiente línea
+                    #Si todo ok, crea el registro
                     record = {"datetime": dt, "user": user, "message": message}
                     records.append(record)
                 else:
+                    # Si no se puede extraer, verifica si es un mensaje continuado (NO es mensaje del sistam)
                     if not (re.match(system_pattern_Android, line) or re.match(system_pattern_Apple, line)) and records:
-                        records[-1]["message"] += " " + line.strip()
+                        records[-1]["message"] += " " + line.strip() # Agrega el mensaje a la última entrada
                     else:
                         logger.debug("Línea %d no coincide con ningún patrón: %s", num_line, line)
 
