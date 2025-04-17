@@ -2,7 +2,12 @@
 import streamlit as st
 import os
 import tempfile
+
+from app.analizar_inicios import analizar_inicios
+
 from app.chat_to_df import chat_to_dataframe
+from app.clean_dataframe import clean_dataframe
+
 
 def main():
     st.title("DEMO titulo chingo aqui")
@@ -17,18 +22,23 @@ def main():
         try:
             # Procesar el archivo y mostrar el DataFrame
             df = chat_to_dataframe(temp_file_path)
-            st.success("Pos funcionó 🤩")
-            st.dataframe(df)
+            df_cleaned = clean_dataframe(df)
+            with st.expander("Raw DataFrame"):
+                st.dataframe(df_cleaned)
+            st.subheader("¿Quién inicia más conversaciones?")
+            countprop, inicios = analizar_inicios(df)
+            st.dataframe(countprop)
+            st.success("Pos funcionó :v")
+
         except Exception as e:
-            st.error(e)
+            st.error(f"Error al procesar el archivo: {e}")
+            print(f"Error: {e}")
 
         # Después de terminar el procesamiento, se elimina el archivo temporal.
         try:
             os.remove(temp_file_path)
-            print("Archivo temporal eliminado exitosamente.")
-
         except Exception as e:
-            print(f"Error al eliminar el archivo temporal: {e}")
+            st.warning(f"Error al eliminar el archivo temporal: {e}")
 
 if __name__ == "__main__":
     main()

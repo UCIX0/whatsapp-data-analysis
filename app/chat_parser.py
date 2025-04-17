@@ -1,15 +1,8 @@
 import re
 import pandas as pd
-import logging
-from app.parser.patterns import PATTERN_APPLE, PATTERN_ANDROID
 
-logger = logging.getLogger(__name__)
 
-class ChatProcessingError(Exception):
-    """Excepción para errores en el procesamiento del chat."""
-    pass
-
-def extract_line(line):
+def extract_line(line: str) -> tuple:
     """
     Extrae la fecha, hora, usuario y mensaje de una línea del chat.
 
@@ -20,7 +13,23 @@ def extract_line(line):
         tuple: (date_str, time_str, user, message) si la extracción es exitosa;
         de lo contrario, (None, None, None, None).
     """
-    pattern = PATTERN_APPLE if line.startswith('[') else PATTERN_ANDROID
+    if line.startswith('['):
+        pattern = ( #Apple
+            r'^\[' # Comienza con un corchete abierto
+            r'(?P<date>\d{1,2}/\d{1,2}/\d{2,4}),\s*' # Fecha (dd/mm/yy o dd/mm/yyyy)
+            r'(?P<time>\d{1,2}:\d{2}(?::\d{2})?(?:\s*[apAP]\.?[\s]*[mM]\.?)?)'  # Tiempo (hh:mm, opcional :ss y opcional AM/PM)
+            r'\]\s+' # Cierra el corchete y sigue con espacios
+            r'(?P<user>.+?):\s' # Usuario seguido de dos puntos y espacio
+            r'(?P<message>.*)' # Mensaje (todo el texto restante)
+        )
+    else:
+        pattern = ( #Android
+            r'^(?P<date>\d{1,2}/\d{1,2}/\d{4}),\s+' # Fecha en formato dd/mm/yyyy
+            r'(?P<time>\d{1,2}:\d{2}(?::\d{2})?(?:\s*[apAP]\.?[\s]*[mM]\.?)?)' # Tiempo (hh:mm, opcional :ss y opcional AM/PM)
+            r'\s*-\s*' # Separador " - " con espacios opcionales
+            r'(?P<user>.+?):\s' # Usuario seguido de dos puntos y espacio
+            r'(?P<message>.*)'  # Mensaje (todo el texto restante)
+        )
     match = re.search(pattern, line)
     if match:
         return (
@@ -31,7 +40,8 @@ def extract_line(line):
         )
     return None, None, None, None
 
-def parse_datetime(date_str, time_str):
+
+def parse_datetime(date_str: str, time_str: str) -> pd.Timestamp:
     """
     Convierte cadenas de fecha y hora en un objeto datetime de pandas.
 
@@ -47,13 +57,10 @@ def parse_datetime(date_str, time_str):
     """
     clean_time = re.sub(r'\.', '', time_str)
     clean_time = " ".join(clean_time.split())
-    # Busca y reemplaza separadamente patrones de "a m" por "am"  insensible a mayúsculas/minúsculas
     clean_time = re.sub(r'(?i)\b([ap])\s+([m])\b', r'\1\2', clean_time)
-    # Determina si la cadena de tiempo contiene el indicador AM/PM.
     has_ampm = re.search(r'\b(?:am|pm)\b', clean_time, re.IGNORECASE)
-    has_seconds = clean_time.count(':') == 2 # Determina si se han incluido segundos contando ":"
-    short_year = len(date_str.split('/')[-1]) == 2 # Verifica si el año se expresa en dos dígitos.
-
+    has_seconds = clean_time.count(':') == 2
+    short_year = len(date_str.split('/')[-1]) == 2
     if has_ampm: # Para formato 12 horas
         date_format = "%d/%m/%y" if short_year else "%d/%m/%Y"
         time_format = " %I:%M:%S %p" if has_seconds else " %I:%M %p"
@@ -61,17 +68,10 @@ def parse_datetime(date_str, time_str):
         date_format = "%d/%m/%y" if short_year else "%d/%m/%Y"
         time_format = " %H:%M:%S" if has_seconds else " %H:%M"
 
-    # Se compone el formato completo
     dt_format = date_format + time_format
     date_time_str = f"{date_str} {clean_time}"
-
-    #intenta convertir a datime
     try:
         dt = pd.to_datetime(date_time_str, format=dt_format)
     except Exception as e:
-        logger.error(
-            "Error parseando datetime para '%s' usando el formato '%s': %s",
-            date_time_str, dt_format, e
-        )
         raise ValueError(f"Error parseando datetime: {e}")
     return dt
