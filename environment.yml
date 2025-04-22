@@ -12,5 +12,5 @@ dependencies:
   - seaborn
   - streamlit
   - wordcloud
-- pip:
+  - pip:
     - emoji
