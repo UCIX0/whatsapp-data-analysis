@@ -3,10 +3,10 @@ import streamlit as st
 import os
 import tempfile
 
-from app.analizar_inicios import analizar_inicios
-
-from app.chat_to_df import chat_to_dataframe
-from app.clean_dataframe import clean_dataframe
+from app.analysis.analizar_inicios import analizar_inicios
+#from app.analysis.estadiscs import pass
+from app.pipeline.chat_to_df import chat_to_dataframe
+from app.pipeline.clean_dataframe import clean_dataframe
 
 
 def main():
