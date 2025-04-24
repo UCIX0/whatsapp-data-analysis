@@ -1,6 +1,6 @@
 import pandas as pd
 import re
-from app.chat_parser import extract_line, parse_datetime
+from app.pipeline.chat_parser import extract_line, parse_datetime
 
 def chat_to_dataframe(file_path: str) -> pd.DataFrame:
     """
