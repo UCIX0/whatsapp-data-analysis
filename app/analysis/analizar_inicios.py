@@ -14,10 +14,10 @@ def analizar_inicios(df: pd.DataFrame, umbral_minutos=60) -> pd.DataFrame:
     # Contamos quién inicia más
     conteo = inicios['user'].value_counts()
     total = conteo.sum()
-    proporciones = conteo / total
+    proporciones = conteo / total * 100
     countprop = pd.DataFrame({
-        'user': conteo.index,
-        'Inicia': conteo.values,
-        '% Inicios': proporciones.values
+        'User': conteo.index,
+        'Conversations Initiated': conteo.values,
+        'Start %': proporciones.values
     })
-    return countprop.reset_index(drop=True), inicios
+    return countprop.reset_index(drop=True)

@@ -1,16 +1,15 @@
 name: whatsapp-proyect
 channels:
+  - conda-forge
   - defaults
-  - https://repo.anaconda.com/pkgs/main
-  - https://repo.anaconda.com/pkgs/r
-  - https://repo.anaconda.com/pkgs/msys2
 dependencies:
   - python=3.11
-  - matplotlib
-  - numpy
+  - numpy=1.26
   - pandas
+  - matplotlib
   - seaborn
   - streamlit
   - wordcloud
+  - pip
   - pip:
-    - emoji
+      - hydralit_components

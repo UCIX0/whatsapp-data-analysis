@@ -1,13 +1,14 @@
 import matplotlib.pyplot as plt
 from wordcloud import WordCloud
 import pandas as pd
-from app.analysis.stats import messages_per_day
+from app.analysis.stats import messages_per_dates
 
 def messages_over_time_fig(df: pd.DataFrame):
-    series = messages_per_day(df)
+    daily_df  = messages_per_dates(df)
+    daily_df = daily_df.sort_values("Dates")
 
     fig, ax = plt.subplots(figsize=(8, 5))
-    ax.plot(series.index, series.values)
+    ax.plot(daily_df["Dates"], daily_df["Messages count"])
     plt.xlabel("Date")
     plt.ylabel("Number of Messages")
     plt.title("Messages Over Time")
