@@ -7,7 +7,7 @@ from app.services.data_manager import get_data
 
 st.set_page_config(
     page_title="WhatsApp Chat Analyzer",
-    page_icon="static/logo_icon (2).png",
+    page_icon="static/logo_icon.png",
     layout="wide",
     initial_sidebar_state="collapsed",
 )
