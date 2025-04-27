@@ -7,14 +7,19 @@ from app.services.data_manager import get_data
 
 st.set_page_config(
     page_title="WhatsApp Chat Analyzer",
-    page_icon="💬",
+    page_icon="static/logo_icon (2).png",
     layout="wide",
     initial_sidebar_state="collapsed",
 )
 
 
 def main() -> None:
-    st.title("💬 WhatsApp Chat Analyzer")
+    col1, col2 = st.columns([1, 15])
+    with col1:
+        st.image("static/logo.png", width=120)
+
+    with col2:
+        st.title("WhatsApp Chat Analyzer")
     col1, col2, col3 = st.columns([1, 2, 1])
     # ---------- File uploader ----------
     with col2:
