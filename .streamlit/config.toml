@@ -1,0 +1,14 @@
+[logger]
+level = "warning"
+
+[client]
+toolbarMode = "minimal"
+
+[theme]
+primaryColor="#7469b6"
+backgroundColor="#ffe6e6"
+secondaryBackgroundColor="#e1afd1"
+textColor="#393356"
+linkColor = "#8E24AA"
+font="monospace"
+baseRadius = "large"
