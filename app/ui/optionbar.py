@@ -8,10 +8,10 @@ OPTION_DATA = [
 
 
 THEME = {
-    'txc_inactive': '#ffe6e6',
-    'menu_background': '#393356',
-    'txc_active': '#393356',
-    'option_active': '#ffe6e6'
+    'txc_inactive': '#06202B',
+    'menu_background': '#F5EEDD',
+    'txc_active': '#F5EEDD',
+    'option_active': '#06202B'
 }
 
 
