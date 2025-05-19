@@ -28,25 +28,82 @@ Get insights into messaging patterns, conversation starters, most active users, 
 
 ```bash
 whatsapp-data-analysis/
-├── app/
-│   ├── analysis/
-│   │   ├── __init__.py
-│   │   ├── analizar_inicios.py    # Conversation starter analysis
-│   │   ├── stats.py               # Statistical calculations
-│   │   └── visualization.py       # Visualization functions
-│   ├── pipeline/
-│   │   ├── __init__.py
-│   │   ├── chat_parser.py         # Raw chat parsing
-│   │   ├── chat_to_df.py          # DataFrame conversion
-│   │   └── clean_dataframe.py     # Data cleaning
-│   ├── __init__.py
-│   ├── config.yaml                # Configuration settings
-│   ├── environment.yml            # Conda environment specification
-│   ├── main.py                    # Streamlit application
-│   └── README.md
-├── .gitignore
-└── README.md (this file)
+│   .gitignore
+│   environment.yml
+│   main.py
+│   README.md
+│
+├───.streamlit
+│       config.toml
+│
+├───app
+│   │   __init__.py
+│   │
+│   ├───analysis
+│   │   │   analizar_inicios.py
+│   │   │   stats.py
+│   │   │   visualization.py
+│   │   └───__init__.py
+│   │
+│   ├───pipeline
+│   │   │   chat_parser.py
+│   │   │   chat_to_df.py
+│   │   │   clean_dataframe.py
+│   │   │   config.yaml
+│   │   └───__init__.py
+│   │
+│   ├───services
+│   │   │   compute_data.py
+│   │   │   data_manager.py
+│   │   └───__init__.py
+│   │
+│   │
+│   └───ui
+│       │   optionbar.py
+│       │   render_pages.py
+│       │   stats_cards.py
+│       └───__init__.py
+└───static
+   │    logo.png
+   └─── logo_icon.png
 ```
+---
+
+## 📑 Main Application Pseudocode
+
+```text
+1  Iniciar
+2  Configurar página Streamlit
+      • título      = "WhatsApp Chat Analyzer"
+      • icono       = "static/logo_icon.png"
+      • layout      = wide
+      • sidebar     = collapsed
+
+3  Crear 2 columnas (1 : 15) para el encabezado
+      3.1  En col1 → mostrar imagen logo (120 px)
+      3.2  En col2 → mostrar título de la app
+
+4  Crear 3 columnas (1 : 2 : 1) para el uploader
+      4.1  En columna central
+           • Mostrar st.file_uploader  (solo .txt)
+           • Si no hay archivo:
+               ◦ Mostrar info
+               ◦ Detener ejecución (st.stop)
+
+5  Obtener datos procesados ← get_data(uploaded_file)
+      • Manejar StopException → detener app
+
+6  Mostrar tarjetas KPI      ← cards_show(df)
+7  Dibujar divisor
+
+8  Mostrar barra de opciones ← draw_optionbar()
+      • Si None → "Tables"
+
+9  Según opción:
+      • "Tables"        → render_tables(dframes)
+      • "Visualization" → render_charts(figs)
+
+10 Fin
 
 ---
 
