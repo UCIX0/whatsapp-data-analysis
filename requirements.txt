@@ -1,0 +1,7 @@
+numpy==1.26
+pandas
+matplotlib
+seaborn
+streamlit
+wordcloud
+hydralit_components
