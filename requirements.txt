@@ -1,7 +1,8 @@
-numpy==1.26
+numpy
 pandas
 matplotlib
 seaborn
 streamlit
 wordcloud
 hydralit_components
+pyyaml
