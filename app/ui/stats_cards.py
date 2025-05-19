@@ -1,8 +1,23 @@
 import streamlit as st
 import hydralit_components as hc
 import app.analysis.stats as stats
+import pandas as pd
 
-def cards_show(df):
+def cards_show(df: pd.DataFrame) -> None:
+    """
+    Renderiza tarjetas informativas (info cards) con métricas clave del chat analizado.
+
+    Parámetros:
+    ----------
+    df : pd.DataFrame
+        DataFrame limpio con columnas 'datetime', 'user' y 'message'.
+
+    Métricas mostradas:
+    - Total de mensajes.
+    - Número de usuarios únicos.
+    - Período cubierto por el chat.
+    - Cantidad total de enlaces compartidos.
+    """
     total = len(df)
     users = df["user"].nunique()
     period = f'{df["datetime"].dt.date.min()} → {df["datetime"].dt.date.max()}'
@@ -41,7 +56,7 @@ def cards_show(df):
     # Crear columnas
     c1, c2, c3, c4 = st.columns(4)
 
-    # Insertar las tarjetas
+    # Mostrar tarjeta: total de mensajes
     with c1:
         hc.info_card(
             title='Messages',
@@ -49,6 +64,7 @@ def cards_show(df):
             theme_override=theme_messages
         )
 
+    # Mostrar tarjeta: usuarios únicos
     with c2:
         hc.info_card(
             title='Users',
@@ -56,6 +72,7 @@ def cards_show(df):
             theme_override=theme_users
         )
 
+    # Mostrar tarjeta: enlaces compartidos
     with c3:
         hc.info_card(
             title='Links',
@@ -63,6 +80,7 @@ def cards_show(df):
             theme_override=theme_links
         )
 
+    # Mostrar tarjeta: periodo del chat
     with c4:
         hc.info_card(
             title='Period',

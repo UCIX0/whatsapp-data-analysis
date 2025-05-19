@@ -1,9 +1,26 @@
 import streamlit as st
+import pandas as pd
+import matplotlib.pyplot as plt
 
-def render_tables(dict_dframes):
+def render_tables(dict_dframes: dict[str, pd.DataFrame]) -> None:
+    """
+    Renderiza una serie de tablas estadísticas en la interfaz de Streamlit a partir de
+    un diccionario de DataFrames previamente calculados.
+
+    Parámetros:
+    ----------
+    dict_dframes : dict[str, pd.DataFrame]
+        Diccionario con los siguientes DataFrames:
+        - 'user_counts': mensajes por usuario.
+        - 'per_day': mensajes por día.
+        - 'per_hour': mensajes por hora.
+        - 'per_weekday': mensajes por día de la semana.
+        - 'start_conversations': usuarios que más inician conversación.
+        - 'links': enlaces más compartidos.
+    """
 
     cols = st.columns(4, border=False)
-
+    # Sección superior
     with cols[0]:
         st.subheader("Messages per User")
         st.dataframe(dict_dframes["user_counts"], hide_index=True, use_container_width=True)
@@ -28,7 +45,7 @@ def render_tables(dict_dframes):
     st.divider()
     cols = st.columns(2, border=False)
 
-
+    # Sección inferior
     with cols[0]:
         st.subheader("Probability of Starting a Conversation")
         st.dataframe(
@@ -49,7 +66,17 @@ def render_tables(dict_dframes):
 
 
 
-def render_charts(dict_figs):
+def render_charts(dict_figs: dict[str, "plt.Figure"]) -> None:
+    """
+    Renderiza las visualizaciones generadas previamente (gráficas) en la interfaz de Streamlit.
+
+    Parámetros:
+    ----------
+    dict_figs : dict[str, matplotlib.figure.Figure]
+        Diccionario con las visualizaciones:
+        - 'messages_over_time': gráfico de mensajes por día.
+        - 'wordcloud': nube de palabras.
+    """
     st.subheader("Messages over Time")
     st.pyplot(dict_figs["messages_over_time"], use_container_width=False)
 

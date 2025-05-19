@@ -43,17 +43,25 @@ def extract_line(line: str) -> tuple:
 
 def parse_datetime(date_str: str, time_str: str) -> pd.Timestamp:
     """
-    Convierte cadenas de fecha y hora en un objeto datetime de pandas.
+    Convierte cadenas de texto que representan una fecha y una hora en un objeto Timestamp de pandas.
 
-    Parameters:
-        date_str (str): Fecha en formato dd/mm/yy o dd/mm/yyyy.
-        time_str (str): Hora que puede incluir segundos y/o indicadores AM/PM.
+    Parámetros:
+    ----------
+    date_str : str
+        Fecha en formato 'dd/mm/yy' o 'dd/mm/yyyy'.
+    time_str : str
+        Hora en formato de 12 o 24 horas, con o sin segundos, y con posibles puntos o espacios extras
+        (por ejemplo, '11:23 p. m.', '14:01:15').
 
-    Returns:
-        datetime: Objeto datetime parseado.
+    Retorna:
+    -------
+    pd.Timestamp
+        Objeto de tipo Timestamp con la fecha y hora parseadas.
 
-    Raises:
-        ValueError: Si no se puede parsear la fecha y hora.
+    Lanza:
+    ------
+    ValueError
+        Si la cadena de fecha y hora no puede ser parseada con los formatos esperados.
     """
     clean_time = re.sub(r'\.', '', time_str)
     clean_time = " ".join(clean_time.split())
