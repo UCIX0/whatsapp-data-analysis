@@ -75,47 +75,47 @@ Use this section to navigate directly to each functional module within the app's
 
 ## 👢 Project Structure
 
-```bash
-whatsapp-data-analysis/
-│   .gitignore
-│   environment.yml
-│   main.py
-│   README.md
-│
-├───.streamlit
-│       config.toml
-│
-├───app
-│   │   __init__.py
-│   │
-│   ├───analysis
-│   │   │   analizar_inicios.py
-│   │   │   stats.py
-│   │   │   visualization.py
-│   │   └───__init__.py
-│   │
-│   ├───pipeline
-│   │   │   chat_parser.py
-│   │   │   chat_to_df.py
-│   │   │   clean_dataframe.py
-│   │   │   config.yaml
-│   │   └───__init__.py
-│   │
-│   ├───services
-│   │   │   compute_data.py
-│   │   │   data_manager.py
-│   │   └───__init__.py
-│   │
-│   │
-│   └───ui
-│       │   optionbar.py
-│       │   render_pages.py
-│       │   stats_cards.py
-│       └───__init__.py
-└───static
-   │    logo.png
-   └─── logo_icon.png
-```
+   ```bash
+   whatsapp-data-analysis/
+   │   .gitignore
+   │   environment.yml
+   │   main.py
+   │   README.md
+   │
+   ├───.streamlit
+   │       config.toml
+   │
+   ├───app
+   │   │   __init__.py
+   │   │
+   │   ├───analysis
+   │   │   │   analizar_inicios.py
+   │   │   │   stats.py
+   │   │   │   visualization.py
+   │   │   └───__init__.py
+   │   │
+   │   ├───pipeline
+   │   │   │   chat_parser.py
+   │   │   │   chat_to_df.py
+   │   │   │   clean_dataframe.py
+   │   │   │   config.yaml
+   │   │   └───__init__.py
+   │   │
+   │   ├───services
+   │   │   │   compute_data.py
+   │   │   │   data_manager.py
+   │   │   └───__init__.py
+   │   │
+   │   │
+   │   └───ui
+   │       │   optionbar.py
+   │       │   render_pages.py
+   │       │   stats_cards.py
+   │       └───__init__.py
+   └───static
+      │    logo.png
+      └─── logo_icon.png
+   ```
 ---
 ## 📑 Main Application Pseudocode (Español)
 
@@ -240,22 +240,14 @@ With this configuration:
    cd whatsapp-data-analysis
    ```
 
+
 2. **Create and activate the environment**
-
-   ◾ **Using Conda:**
-
-   ```bash
-   conda env create -f environment.yml
-   conda activate whatsapp-project
-   ```
-
-   ◾ **Using pip:**
 
    ```bash
    python -m venv venv
    source venv/bin/activate        # On Windows use: venv\Scripts\activate
    pip install -r requirements.txt
-   ```
+   ````
 
 3. **Launch the app**
 
