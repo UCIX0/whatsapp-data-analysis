@@ -9,6 +9,7 @@ dependencies:
   - matplotlib
   - seaborn
   - streamlit
+  - pyyaml
   - wordcloud
   - pip
   - pip:
