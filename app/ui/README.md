@@ -4,14 +4,27 @@ This module handles the **front-end rendering logic** of the Streamlit app, incl
 
 ---
 
-## 📂 Files
+## 📖 Table of Contents
 
-```text
-ui/
-├── optionbar.py      # Horizontal navigation bar using Hydralit
-├── render_pages.py   # Functions to display tables and charts
-└── stats_cards.py    # Top info cards for KPIs
-```
+- [📂 Files](#-files--ui)
+- [⚙️ Core Functions](#️-core-functions)
+  - [1. `draw_optionbar`](#1-draw_optionbar--str)
+  - [2. `render_tables`](#2-render_tablesdict_dframes-dictstr-pddataframe)
+  - [3. `render_charts`](#3-render_chartsdict_figs-dictstr-pltfigure)
+  - [4. `cards_show`](#4-cards_showdf-pddataframe)
+- [🧠 Flowchart](#-flowchart)
+- [🧪 Example Usage](#-example-usage)
+- [🎨 Notes](#-notes)
+
+---
+
+## 📂 Files – [`ui/`](app/ui/)
+
+| File                                        | Description                                                                                   |
+| ------------------------------------------- | --------------------------------------------------------------------------------------------- |
+| [`optionbar.py`](app/ui/optionbar.py)       | Creates a horizontal navigation bar using Hydralit Components for toggling views              |
+| [`render_pages.py`](app/ui/render_pages.py) | Renders data tables and visual charts based on user selection (`Tables` or `Visualization`)   |
+| [`stats_cards.py`](app/ui/stats_cards.py)   | Displays summary info cards (total messages, users, links, period) using `Hydralit.info_card` |
 
 ---
 

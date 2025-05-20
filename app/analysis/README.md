@@ -1,18 +1,38 @@
 # 📊 Analysis Module – WhatsApp Chat Analyzer
 
 This module contains the core **statistical and visual analysis** functions used to extract insights from WhatsApp chats. It includes utilities to compute message patterns, identify conversation starters, analyze temporal behavior, and generate visual outputs such as line charts and word clouds.
+---
+## 📖 Table of Contents
+
+- [📂 Files](#-files--analysis)
+- [⚙️ Core Functions](#️-core-functions)
+  - [1. `analizar_inicios`](#1-analizar_iniciosdf-umbral_minutos60)
+  - [2. `stats.py` Functions](#2-statspy-functions)
+    - [2.1 `user_message_counts`](#21-user_message_countsdf)
+    - [2.2 `messages_per_dates`](#22-messages_per_datesdf)
+    - [2.3 `messages_per_hour`](#23-messages_per_hourdf)
+    - [2.4 `messages_per_weekday`](#24-messages_per_weekdaydf)
+    - [2.5 `link_sharing`](#25-link_sharingdf)
+    - [2.6 `remove_links`](#26-remove_linksdf)
+  - [3. `visualization.py` Functions](#3-visualizationpy-functions)
+    - [3.1 `messages_over_time_fig`](#31-messages_over_time_figdf)
+    - [3.2 `build_wordcloud_fig`](#32-build_wordcloud_figdf)
+- [🧠 Flowchart](#-flowchart)
+- [🧪 Example Usage](#-example-usage)
+- [🔎 Notes](#-notes)
 
 ---
 
-## 📂 Files
 
-```text
-analysis/
-├── analizar_inicios.py    # Detects who starts conversations
-├── stats.py               # Statistical analysis of message patterns
-└── visualization.py       # Line plot and word cloud generation
-```
+## 📂 Files – [`analysis/`](app/analysis/)
 
+| File                                                      | Description                                                                              |
+| --------------------------------------------------------- | ---------------------------------------------------------------------------------------- |
+| [`analizar_inicios.py`](app/analysis/analizar_inicios.py) | Detects which users initiate conversations based on time gaps                            |
+| [`stats.py`](app/analysis/stats.py)                       | Provides statistical summaries: user counts, per-day/hour/weekday metrics, link analysis |
+| [`visualization.py`](app/analysis/visualization.py)       | Generates line plots and word clouds using matplotlib and WordCloud                      |
+
+---
 ## ⚙️ Core Functions
 
 ### 1. `analizar_inicios(df, umbral_minutos=60)`

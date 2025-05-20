@@ -7,7 +7,29 @@
 Analyze and visualize WhatsApp chat exports with a powerful, intuitive, and customizable Python tool!
 Get insights into messaging patterns, conversation starters, most active users, and much more.
 
-![Demo Screenshot](https://via.placeholder.com/900x400?text=WhatsApp+Data+Analysis+Demo)
+![Demo Cloud](https://via.placeholder.com/900x400?text=WhatsApp+Data+Analysis+Demo)
+
+---
+## 📖 Table of Contents
+
+- [✨ Key Features](#-key-features)
+- [📚 Core Modules](#-core-modules)
+- [👢 Project Structure](#-project-structure)
+- [📑 Main Application Pseudocode (Español)](#-main-application-pseudocode-español)
+- [🧠 Main Flowchart](#-main-flowchart)
+- [🔗 Dependencies (main)](#-dependencies-main)
+- [🛠 Configuration](#-configuration)
+- [⚡ Quick Start](#-quick-start)
+- [📋 How to Use](#-how-to-use)
+- [🔗 Dependencies (detailed)](#-dependencies)
+- [👍🏼 How to Contribute](#-how-to-contribute)
+- [🛠️ Contribution Workflow](#️-contribution-workflow)
+- [📜 Good Practices](#-good-practices)
+- [📢 Need Help?](#-need-help)
+- [📜 License](#-license)
+- [🚀 Happy Analyzing and Contributing!](#-happy-analyzing-and-contributing)
+- [👥 Project Contributors](#-project-contributors)
+
 
 ---
 
@@ -25,7 +47,24 @@ Get insights into messaging patterns, conversation starters, most active users, 
 | 🌐 **Multilingual**           | Works out‑of‑the‑box for English & Spanish chats.                                       |
 | 🎨 **Custom theme**           | Easily tweak colours and layout through Hydralit Components.                            |
 
+
 ---
+## 📚 Core Modules
+👉 All core logic is located in the [`app/`](./app/) folder.
+
+Use this section to navigate directly to each functional module within the app's architecture:
+
+
+| Module                       | Description                                                                                                                                                    |
+| ---------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| [`pipeline/`](app/pipeline/) | Handles chat parsing, timestamp conversion, and message cleaning via YAML-based rules. Converts raw `.txt` files into structured DataFrames.                   |
+| [`analysis/`](app/analysis/) | Performs statistical analysis such as message frequency, conversation starters, and link detection. Also includes visualization logic (matplotlib, wordcloud). |
+| [`services/`](app/services/) | Coordinates the full analysis pipeline, manages caching via `st.session_state`, and returns results for display in the UI.                                     |
+| [`ui/`](app/ui/)             | Renders the frontend with Streamlit and Hydralit. Includes navigation, KPI cards, interactive tables, and chart layout components.                             |
+---
+
+
+
 
 ## 👢 Project Structure
 
@@ -110,26 +149,9 @@ whatsapp-data-analysis/
 ---
 ## 🧠 Main Flowchart
 
-<img src="docs/main.svg" alt="Main Flowchart" style="max-width:50%; height:auto;">
+<img src="docs/main.svg" alt="Main Flowchart" style="max-width:30%; height:auto;">
 
 ---
-
-## 📚 Core Modules
-
-| Path                               | Responsibility                                  |
-| ---------------------------------- | ----------------------------------------------- |
-| `app/pipeline/chat_parser.py`      | Parse raw lines into structured records         |
-| `app/pipeline/chat_to_df.py`       | Convert chat to a tidy **pandas** DataFrame     |
-| `app/pipeline/clean_dataframe.py`  | YAML‑driven filtering of system noise           |
-| `app/analysis/stats.py`            | Message, time‑of‑day, weekday & link statistics |
-| `app/analysis/analizar_inicios.py` | Conversation‑starter detection                  |
-| `app/analysis/visualization.py`    | Matplotlib chart & WordCloud generation         |
-| `app/services/data_manager.py`     | Caching & orchestration                         |
-| `app/ui/optionbar.py`              | Top navigation bar (Hydralit)                   |
-| `app/ui/stats_cards.py`            | KPI cards                                       |
-| `app/ui/render_pages.py`           | Display tables & charts                         |
----
-
 ## 🔗 Dependencies (main)
 
 * pandas • numpy

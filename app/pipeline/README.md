@@ -4,19 +4,29 @@
 This module is responsible for **parsing**, **cleaning**, and **structuring** raw WhatsApp `.txt` exports into tidy, ready-to-analyze DataFrames. It handles input encoding, date/time formats, multiline messages, and noise filtering.
 
 ---
+## 📖 Table of Contents
 
-## 📂 Files
+- [📂 Files](#-files--pipeline)
+- [⚙️ Core Functions](#️-core-functions)
+  - [1. `extract_line`](#1-extract_lineline-str)
+  - [2. `parse_datetime`](#2-parse_datetimedate_str-str-time_str-str)
+  - [3. `chat_to_dataframe`](#3-chat_to_dataframefile_obj)
+  - [4. `clean_dataframe`](#4-clean_dataframedf-pddataframe)
+- [🧠 Flowchart](#-flowchart)
+- [🧼 YAML Configuration](#-yaml-configuration)
+- [🧪 Example Usage](#-example-usage)
+- [📎 Notes](#-notes)
 
-```text
-pipeline/
-│
-├── chat_parser.py         # Extracts date, time, user, and message from each line
-├── chat_to_df.py          # Converts parsed content into a structured DataFrame
-├── clean_dataframe.py     # Removes system messages using rules from config.yaml
-├── config.yaml            # YAML config file defining messages and keywords to skip
-└── __init__.py
-```
+---
+## 📂 Files – [`pipeline/`](app/pipeline/)
 
+| File                                                    | Description                                                                               |
+| ------------------------------------------------------- | ----------------------------------------------------------------------------------------- |
+| [`chat_parser.py`](app/pipeline/chat_parser.py)         | Extracts date, time, user, and message from each chat line (supports Android/iOS formats) |
+| [`chat_to_df.py`](app/pipeline/chat_to_df.py)           | Converts parsed messages into a clean and structured Pandas DataFrame                     |
+| [`clean_dataframe.py`](app/pipeline/clean_dataframe.py) | Applies YAML-based filtering to remove system messages and placeholders                   |
+| [`config.yaml`](app/pipeline/config.yaml)               | Configuration file for system message filtering (multilingual)                            |
+| [`__init__.py`](app/pipeline/__init__.py)               | Marks the folder as a Python module                                                       |
 ---
 
 ## ⚙️ Core Functions

@@ -3,14 +3,24 @@
 This module orchestrates the **execution flow, data caching, and preprocessing pipeline**. It ensures that chat data is parsed, cleaned, analyzed, and visualized efficiently with support for session-based caching in Streamlit.
 
 ---
+## 📖 Table of Contents
 
-## 📂 Files
+- [📂 Files](#-files--services)
+- [⚙️ Core Functions](#️-core-functions)
+  - [1. `compute_dataframes`](#1-compute_dataframesdf-pddataframe--dictstr-pddataframe)
+  - [2. `compute_figures`](#2-compute_figuresdf-pddataframe--dictstr-pltfigure)
+  - [3. `get_data`](#3-get_datauploaded_file--tuple)
+- [🧠 Flowchart](#-flowchart)
+- [💡 Highlights](#-highlights)
+- [🧪 Example Integration](#-example-integration)
+---
 
-```text
-services/
-├── compute_data.py    # Generates analysis DataFrames and figures
-└── data_manager.py    # Handles input file, caching, and pipeline orchestration
-```
+## 📂 Files – [`services/`](app/services/)
+
+| File                                              | Description                                                                                                         |
+| ------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------- |
+| [`compute_data.py`](app/services/compute_data.py) | Generates preprocessed DataFrames and visual figures (line chart, word cloud) from the cleaned chat data            |
+| [`data_manager.py`](app/services/data_manager.py) | Handles uploaded chat file, performs caching via `st.session_state`, and orchestrates the parsing/analysis pipeline |
 
 ---
 
