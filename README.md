@@ -6,10 +6,9 @@
 
 Analyze and visualize WhatsApp chat exports with a powerful, intuitive, and customizable Python tool!
 Get insights into messaging patterns, conversation starters, most active users, and much more.
-
-![Demo Cloud](https://via.placeholder.com/900x400?text=WhatsApp+Data+Analysis+Demo)
-
 ---
+# Demo: [WhatsApp Data Analysis](https://whatsapp-data-analysis.streamlit.app/)
+
 ## 📖 Table of Contents
 
 - [✨ Key Features](#-key-features)

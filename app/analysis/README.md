@@ -24,13 +24,13 @@ This module contains the core **statistical and visual analysis** functions used
 ---
 
 
-## 📂 Files – [`analysis/`](app/analysis/)
+## 📂 Files – `analysis/`
 
 | File                                                      | Description                                                                              |
 | --------------------------------------------------------- | ---------------------------------------------------------------------------------------- |
-| [`analizar_inicios.py`](app/analysis/analizar_inicios.py) | Detects which users initiate conversations based on time gaps                            |
-| [`stats.py`](app/analysis/stats.py)                       | Provides statistical summaries: user counts, per-day/hour/weekday metrics, link analysis |
-| [`visualization.py`](app/analysis/visualization.py)       | Generates line plots and word clouds using matplotlib and WordCloud                      |
+| [`analizar_inicios.py`](analizar_inicios.py) | Detects which users initiate conversations based on time gaps                            |
+| [`stats.py`](stats.py)                       | Provides statistical summaries: user counts, per-day/hour/weekday metrics, link analysis |
+| [`visualization.py`](visualization.py)       | Generates line plots and word clouds using matplotlib and WordCloud                      |
 
 ---
 ## ⚙️ Core Functions

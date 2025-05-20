@@ -15,12 +15,12 @@ This module orchestrates the **execution flow, data caching, and preprocessing p
 - [🧪 Example Integration](#-example-integration)
 ---
 
-## 📂 Files – [`services/`](app/services/)
+## 📂 Files – `services/`
 
 | File                                              | Description                                                                                                         |
 | ------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------- |
-| [`compute_data.py`](app/services/compute_data.py) | Generates preprocessed DataFrames and visual figures (line chart, word cloud) from the cleaned chat data            |
-| [`data_manager.py`](app/services/data_manager.py) | Handles uploaded chat file, performs caching via `st.session_state`, and orchestrates the parsing/analysis pipeline |
+| [`compute_data.py`](compute_data.py) | Generates preprocessed DataFrames and visual figures (line chart, word cloud) from the cleaned chat data            |
+| [`data_manager.py`](data_manager.py) | Handles uploaded chat file, performs caching via `st.session_state`, and orchestrates the parsing/analysis pipeline |
 
 ---
 

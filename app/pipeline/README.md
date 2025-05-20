@@ -18,15 +18,15 @@ This module is responsible for **parsing**, **cleaning**, and **structuring** ra
 - [📎 Notes](#-notes)
 
 ---
-## 📂 Files – [`pipeline/`](app/pipeline/)
+## 📂 Files – `pipeline/`
 
 | File                                                    | Description                                                                               |
 | ------------------------------------------------------- | ----------------------------------------------------------------------------------------- |
-| [`chat_parser.py`](app/pipeline/chat_parser.py)         | Extracts date, time, user, and message from each chat line (supports Android/iOS formats) |
-| [`chat_to_df.py`](app/pipeline/chat_to_df.py)           | Converts parsed messages into a clean and structured Pandas DataFrame                     |
-| [`clean_dataframe.py`](app/pipeline/clean_dataframe.py) | Applies YAML-based filtering to remove system messages and placeholders                   |
-| [`config.yaml`](app/pipeline/config.yaml)               | Configuration file for system message filtering (multilingual)                            |
-| [`__init__.py`](app/pipeline/__init__.py)               | Marks the folder as a Python module                                                       |
+| [`chat_parser.py`](chat_parser.py)         | Extracts date, time, user, and message from each chat line (supports Android/iOS formats) |
+| [`chat_to_df.py`](chat_to_df.py)           | Converts parsed messages into a clean and structured Pandas DataFrame                     |
+| [`clean_dataframe.py`](clean_dataframe.py) | Applies YAML-based filtering to remove system messages and placeholders                   |
+| [`config.yaml`](config.yaml)               | Configuration file for system message filtering (multilingual)                            |
+| [`__init__.py`](__init__.py)               | Marks the folder as a Python module                                                       |
 ---
 
 ## ⚙️ Core Functions
