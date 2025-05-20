@@ -1,7 +1,31 @@
-### Pseudocódigo – `compute_data.py`
+# 🛠 Services Module – WhatsApp Chat Analyzer
 
-#### 1. Función `compute_dataframes`
+This module orchestrates the **execution flow, data caching, and preprocessing pipeline**. It ensures that chat data is parsed, cleaned, analyzed, and visualized efficiently with support for session-based caching in Streamlit.
 
+---
+
+## 📂 Files
+
+```text
+services/
+├── compute_data.py    # Generates analysis DataFrames and figures
+└── data_manager.py    # Handles input file, caching, and pipeline orchestration
+```
+
+---
+
+## ⚙️ Core Functions
+
+### 1. `compute_dataframes(df: pd.DataFrame) → dict[str, pd.DataFrame]`
+
+Generates key summary tables from the input DataFrame:
+
+* `'user_counts'`: messages per user
+* `'per_day'`: messages per calendar date
+* `'per_hour'`: messages per hour (00–23)
+* `'per_weekday'`: messages per weekday (Monday–Sunday)
+* `'start_conversations'`: users who initiate conversations
+* `'links'`: frequency of shared links
 ```
 1  Iniciar
 2  Construir y devolver diccionario:
@@ -13,9 +37,14 @@
     • 'links'               ← stats.link_sharing(df)
 3  Fin
 ```
+---
 
-#### 2. Función `compute_figures`
+### 2. `compute_figures(df: pd.DataFrame) → dict[str, plt.Figure]`
 
+Returns pre-generated visualizations:
+
+* `'messages_over_time'`: line chart of messages per day
+* `'wordcloud'`: WordCloud based on message text
 ```
 1  Iniciar
 2  Construir y devolver diccionario:
@@ -26,16 +55,33 @@
 
 ---
 
-### Pseudocódigo – `data_manager.py`
+### 3. `get_data(uploaded_file) → tuple`
 
-#### 3. Función `get_data`
+This is the **entry point** for loading and caching the user-uploaded WhatsApp chat file.
+It performs:
 
+* ✅ File deduplication via `MD5` hash
+* ✅ Streamlit caching via `st.session_state`
+* ✅ Parsing, cleaning, analysis, and visualization
+* ✅ Graceful error handling using `st.error()` and `st.stop()`
+
+#### Output:
+
+Returns a tuple with:
+
+```python
+(df, dict_dframes, dict_figs)
+```
+
+* `df`: Cleaned DataFrame
+* `dict_dframes`: Dictionary of stats tables
+* `dict_figs`: Dictionary of pre-built matplotlib figures
 ```
 1  Iniciar
 2  file_bytes ← uploaded_file.getvalue()
 3  file_hash  ← MD5(file_bytes)
 
-4  Si st.session_state['file_hash'] ≠ file_hash entonces          # archivo nuevo
+4  Si st.session_state['file_hash'] ≠ file_hash entonces    # archivo nuevo
     4.1  Mostrar loader “Processing chat…”
     4.2  Intentar
          a. df ← chat_to_dataframe(BytesIO(file_bytes))
@@ -56,4 +102,27 @@
      st.session_state.dict_dframes,
      st.session_state.dict_figs)
 7  Fin
+```
+## 🧠 Flowchart
+<img src="../../docs/services.svg" alt="Main Flowchart" style="max-width:60%; height:auto;">
+
+---
+
+## 💡 Highlights
+
+* ⚡ Optimized for **performance**: avoids redundant reprocessing
+* 📦 Keeps **state** across reruns using `st.session_state`
+* 🧱 Modular: relies on `pipeline` and `analysis` modules
+* 🎛 Integrated loading feedback with `HydralitComponents.HyLoader`
+
+---
+
+## 🧪 Example Integration
+
+```python
+df, dframes, figs = get_data(uploaded_file)
+
+# Use in Streamlit app:
+st.dataframe(dframes["user_counts"])
+st.pyplot(figs["messages_over_time"])
 ```

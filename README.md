@@ -4,23 +4,26 @@
 [![Streamlit](https://img.shields.io/badge/Built%20with-Streamlit-FF4B4B.svg)](https://streamlit.io/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
-Analyze and visualize WhatsApp chat exports with a powerful, intuitive, and customizable Python tool!  
+Analyze and visualize WhatsApp chat exports with a powerful, intuitive, and customizable Python tool!
 Get insights into messaging patterns, conversation starters, most active users, and much more.
 
 ![Demo Screenshot](https://via.placeholder.com/900x400?text=WhatsApp+Data+Analysis+Demo)
 
 ---
 
-## ✨ Features
+## ✨ Key Features
 
-- 📜 Parse WhatsApp chats (Android and iOS formats)
-- 🧹 Clean messy, multi-line messages automatically
-- 📈 Visualize activity over time
-- 🗣️ Identify who initiates conversations most often
-- ☁️ Generate word clouds from chat content
-- 🔧 Customize filtering and analysis via `config.yaml`
-- 🌐 Multilingual (supports English & Spanish chats)
-- 🖥️ Beautiful web app interface using Streamlit
+|                               |                                                                                         |
+| ----------------------------- | --------------------------------------------------------------------------------------- |
+| 📜 **Robust parser**          | Handles Android & iOS exports, multi‑line messages, 12/24‑hour times and AM/PM formats. |
+| 🧹 **Automatic cleaning**     | YAML‑driven rules remove system messages, deleted placeholders and media notes.         |
+| 📈 **Interactive dashboards** | Tables & charts switchable via a Hydralit navigation bar.                               |
+| 💬 **Conversation starters**  | Detect who breaks the ice using configurable idle gaps (default 60 min).                |
+| 🔗 **Link analytics**         | Extract, count and display the most shared URLs in the chat.                            |
+| ☁️ **Word clouds**            | Visualise the vocabulary once links & short words are filtered.                         |
+| ⏱️ **Smart caching**          | Heavy processing runs once and is cached with `st.session_state`.                       |
+| 🌐 **Multilingual**           | Works out‑of‑the‑box for English & Spanish chats.                                       |
+| 🎨 **Custom theme**           | Easily tweak colours and layout through Hydralit Components.                            |
 
 ---
 
@@ -68,8 +71,7 @@ whatsapp-data-analysis/
    └─── logo_icon.png
 ```
 ---
-
-## 📑 Main Application Pseudocode
+## 📑 Main Application Pseudocode (Español)
 
 ```text
 1  Iniciar
@@ -104,29 +106,146 @@ whatsapp-data-analysis/
       • "Visualization" → render_charts(figs)
 
 10 Fin
+```
+---
+## 🧠 Main Flowchart
+
+<img src="docs/main.svg" alt="Main Flowchart" style="max-width:50%; height:auto;">
 
 ---
 
-## ⚙️ Setup Instructions
+## 📚 Core Modules
 
-1. **Clone the repository:**
+| Path                               | Responsibility                                  |
+| ---------------------------------- | ----------------------------------------------- |
+| `app/pipeline/chat_parser.py`      | Parse raw lines into structured records         |
+| `app/pipeline/chat_to_df.py`       | Convert chat to a tidy **pandas** DataFrame     |
+| `app/pipeline/clean_dataframe.py`  | YAML‑driven filtering of system noise           |
+| `app/analysis/stats.py`            | Message, time‑of‑day, weekday & link statistics |
+| `app/analysis/analizar_inicios.py` | Conversation‑starter detection                  |
+| `app/analysis/visualization.py`    | Matplotlib chart & WordCloud generation         |
+| `app/services/data_manager.py`     | Caching & orchestration                         |
+| `app/ui/optionbar.py`              | Top navigation bar (Hydralit)                   |
+| `app/ui/stats_cards.py`            | KPI cards                                       |
+| `app/ui/render_pages.py`           | Display tables & charts                         |
+---
+
+## 🔗 Dependencies (main)
+
+* pandas • numpy
+* matplotlib • wordcloud
+* streamlit • hydralit‑components
+* pyyaml • emoji
+* python‑dateutil
+
+> See the full list in **`environment.yml`** and **`requirements.txt`**.
+---
+
+## 🛠 Configuration
+
+### 📁 `app/pipeline/config.yaml`
+
+This YAML file controls how the chat is cleaned and filtered before analysis. You can:
+
+* ❌ Exclude system messages (e.g. *“changed the group description”*)
+* 🗑️ Ignore deleted or empty messages
+* 🎞️ Skip multimedia notifications (images, audio, stickers, etc.)
+* 🔤 Normalize user names for consistency
+* 🌐 Filter message content by language (currently supports English & Spanish)
+
+It includes predefined keys like:
+
+```yaml
+skip_keys:
+  - ENCRYPTION
+  - MESSAGE_DELETED
+  - MULTIMEDIA_OMITTED
+  ...
+```
+
+And multilingual message templates to detect and remove unwanted content:
+
+```yaml
+skip_messages:
+  ENCRYPTION:
+    es: Los mensajes y las llamadas están cifrados de extremo a extremo.
+    en: Messages and calls are end-to-end encrypted.
+  ...
+```
+
+### 🎨 `.streamlit/config.toml`
+
+This file defines the **visual theme and behavior** of the Streamlit app.
+
+```toml
+[logger]
+level = "warning"
+
+[client]
+toolbarMode = "minimal"
+
+[theme]
+primaryColor = "#7AE2CF"
+backgroundColor = "#06202B"
+secondaryBackgroundColor = "#077A7D"
+textColor = "#F5EEDD"
+linkColor = "#7AE2CF"
+font = "monospace"
+baseRadius = "large"
+```
+
+With this configuration:
+
+* ✅ The UI uses a custom color palette for a clean, modern look
+* 🧘 The sidebar is minimal and non-intrusive
+* 🚨 Warnings and above are shown in logs, to reduce noise during runtime
+
+---
+
+## ⚡ Quick Start
+
+1. **Clone the repo**
 
    ```bash
    git clone https://github.com/bielng/whatsapp-data-analysis.git
    cd whatsapp-data-analysis
    ```
 
-2. **Create and activate the environment:**
+2. **Create and activate the environment**
+
+   ◾ **Using Conda:**
 
    ```bash
-   conda env create -f app/environment.yml
-   conda activate whatsapp-proyect
+   conda env create -f environment.yml
+   conda activate whatsapp-project
    ```
 
-3. **Run the Streamlit app:**
+   ◾ **Using pip:**
+
    ```bash
-   streamlit run app/main.py
+   python -m venv venv
+   source venv/bin/activate        # On Windows use: venv\Scripts\activate
+   pip install -r requirements.txt
    ```
+
+3. **Launch the app**
+
+   ```bash
+   streamlit run main.py
+   ```
+
+
+## 📋 How to Use
+
+1. **Export** your chat from WhatsApp → ***Without media***.
+2. **Drop** the `.txt` file onto the uploader.
+3. **Explore**:
+
+   * who sends what & when
+   * busiest days / hours
+   * who starts most conversations
+   * most shared links
+   * word cloud of frequent terms
 
 ---
 
@@ -144,74 +263,31 @@ whatsapp-data-analysis/
    - Word clouds ☁️
    - User activity patterns 🔥
 
----
 
-## 📚 Key Components
-
-| Component             | Purpose                                                    |
-| :-------------------- | :--------------------------------------------------------- |
-| `chat_parser.py`      | Parse raw WhatsApp chat text                               |
-| `chat_to_df.py`       | Convert parsed chat to Pandas DataFrame                    |
-| `stats.py`            | Generate statistics (messages per user, activity patterns) |
-| `analizar_inicios.py` | Detect who starts conversations                            |
-| `visualization.py`    | Create beautiful plots and word clouds                     |
-| `main.py`             | Main Streamlit web app                                     |
-
----
-
-## 💅 Example Outputs
-
-### Conversation Starters Table
-
-| User  | Conversations Started | %   |
-| ----- | --------------------- | --- |
-| Alice | 42                    | 58% |
-| Bob   | 30                    | 42% |
-
-### Message Frequency Over Time
-
-_(Streamlit line graph based on daily or monthly message counts)_
-
-### Word Cloud Example
-
-_(Automatically generated from the most frequent words)_
-
----
 
 ## 🔗 Dependencies
 
 - [Python 3.11](https://www.python.org/)
+- [NumPy 1.26](https://numpy.org/)
 - [Pandas](https://pandas.pydata.org/)
 - [Matplotlib](https://matplotlib.org/)
 - [Seaborn](https://seaborn.pydata.org/)
 - [Streamlit](https://streamlit.io/)
 - [Wordcloud](https://amueller.github.io/word_cloud/)
+- [Hydralit Components](https://github.com/TangleSpace/hydralit_components)
 - [PyYAML](https://pyyaml.org/)
-- [emoji](https://pypi.org/project/emoji/)
 
-> Full dependency list in `app/environment.yml`
+> Full dependency list in **`app/environment.yml`** and **`requirements.txt`**.
 
----
 
-## 📢 Configuration
+## 👍🏼 How to Contribute
 
-Customize analysis settings in `app/config.yaml`:
-
-- Filter system messages
-- Ignore deleted messages
-- Skip multimedia notifications
-- Adjust user name matching
-
----
-
-# 👍🏼 How to Contribute
-
-We welcome contributions to **WhatsApp Data Analysis**! 🚀  
+We welcome contributions to **WhatsApp Data Analysis**! 🚀
 Follow these simple steps to make your contribution count:
 
 ## 🛠️ Contribution Workflow
 
-1. **Fork the repository**  
+1. **Fork the repository**
    ➔ Click the `Fork` button at the top right of this page to create your own copy.
 
 2. **Clone your fork locally**
@@ -270,9 +346,18 @@ Follow these simple steps to make your contribution count:
 If you're stuck or have questions, feel free to open an [Issue](https://github.com/bielng/whatsapp-data-analysis/issues) or ask in the Pull Request comments.
 
 ---
+## 📜 License
+
+Distributed under the **MIT License**.
+See `LICENSE` for details.
+
+---
 
 # 🚀 Happy Analyzing and Contributing! 📊💬
 
-- Participants
-  - Javier Uc Ix
-  - Taban Ngunar
+## 👥 Project Contributors
+  - [Javier Uc Ix](https://github.com/UCIX0)
+  - [Taban Ngunar](https://github.com/bielng)
+  - [Giorgio Andre](https://github.com/carabagiioo)
+
+
