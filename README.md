@@ -11,9 +11,9 @@ Get insights into messaging patterns, conversation starters, most active users, 
 
 Check out the deployed app on **Streamlit Cloud**:
 
-[![Open in Streamlit](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://whatsapp-data-analysis.streamlit.app/)
+![Open in Streamlit](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)
 
-🔗 [https://whatsapp-data-analysis.streamlit.app/](https://whatsapp-data-analysis.streamlit.app/)
+🔗 ```https://whatsapp-data-analysis.streamlit.app/```
 
 ---
 
