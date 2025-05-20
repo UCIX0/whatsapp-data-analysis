@@ -7,8 +7,15 @@
 Analyze and visualize WhatsApp chat exports with a powerful, intuitive, and customizable Python tool!
 Get insights into messaging patterns, conversation starters, most active users, and much more.
 ---
-# Demo:
-[WhatsApp Data Analysis](https://whatsapp-data-analysis.streamlit.app/)
+## 🚀 Live Demo
+
+Check out the deployed app on **Streamlit Cloud**:
+
+[![Open in Streamlit](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://whatsapp-data-analysis.streamlit.app/)
+
+🔗 [https://whatsapp-data-analysis.streamlit.app/](https://whatsapp-data-analysis.streamlit.app/)
+
+---
 
 ## 📖 Table of Contents
 
